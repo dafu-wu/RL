@@ -1,0 +1,43 @@
+# .git
+# **/.git
+
+# Large content that is not needed at runtime
+venvs/
+**/__pycache__/
+*.log
+*.out
+*.tar
+*.tar.gz
+uv_cache/
+hf_home/
+hf_datasets_cache/
+wandb/
+checkpoints/
+results/
+ckpts/
+code_snapshots/
+*.egg-info/
+build/
+_build/
+dist/
+
+# Training run artifacts (previously a 4.4G logs/ dir accidentally entered the build
+# context, blowing up the context size and filling up buildkit's disk).
+logs/
+**/logs/
+tb_logs*/
+**/tb_logs*/
+*tensorboard*/
+
+# 3rdparty submodule sources: already installed in the image via the v0.6.0 base image as
+# editable installs. Exclude them here so COPY only overlays the main repo (nemo_rl)
+# changes and does not overwrite the submodules.
+3rdparty/
+
+# Local-dev symlinks (they point to real files/dirs that already exist inside the repo)
+# and are not needed at runtime. If not excluded, COPY would try to overwrite an existing
+# directory in the base image with a symlink, triggering
+# "cannot replace to directory ... with file" (e.g. .claude/skills -> ../skills).
+.claude/
+.agents/
+CLAUDE.md

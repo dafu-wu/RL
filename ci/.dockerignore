@@ -1,0 +1,32 @@
+# Build-context exclusions (only used for the ci/Dockerfile build).
+# Exclude .git (~470M) to keep the image small; the fingerprint is precomputed on the
+# build host and COPY'd into the image as ci/nemo_rl_container_fingerprint, so the
+# in-image .git is not needed.
+
+# Large content that is not needed at runtime
+venvs/
+**/__pycache__/
+*.log
+*.out
+*.tar
+*.tar.gz
+uv_cache/
+hf_home/
+hf_datasets_cache/
+wandb/
+checkpoints/
+results/
+ckpts/
+code_snapshots/
+*.egg-info/
+build/
+_build/
+dist/
+
+# Training run artifacts (previously a 4.4G logs/ dir accidentally entered the build
+# context, blowing up the context size and filling up buildkit's disk).
+logs/
+**/logs/
+tb_logs*/
+**/tb_logs*/
+*tensorboard*/

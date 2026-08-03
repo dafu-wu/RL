@@ -1,0 +1,8 @@
+{
+  "pyproject.toml": "1dc8cfb2f7323df7dec427efb544eb55",
+  "submodules/3rdparty/Automodel-workspace/Automodel": "92635e74f4fb16784268b9a9fd7b7d6a83fff6c5",
+  "submodules/3rdparty/Gym-workspace/Gym": "1a4912e231bb2795b062f7de97496caaf382c7f6",
+  "submodules/3rdparty/Megatron-Bridge-workspace/Megatron-Bridge": "95e5f38f8727c4ab30830559c68939f35f4e52f6",
+  "submodules/3rdparty/Megatron-LM-workspace/Megatron-LM": "d30c3ae5469fe3f6a64d4fd2e63b6e7f7844ea81",
+  "uv.lock": "68bca7dc0243f8911d5d5fe0168ef837"
+}
