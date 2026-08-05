@@ -27,7 +27,7 @@
 
 # Use Zoom's internal mirror of the NeMo-RL v0.6.0 base image (nvcr.io is
 # unreachable from the CI network).
-FROM artifacts.corp.zoom.us/zoom-docker-virtual/nvidia/nemo-rl:v0.6.0
+FROM artifacts.corp.zoom.us/zoom-docker-virtual/nvidia/nemo-rl:v0.7.0
 
 WORKDIR /workspace
 ENV DEBIAN_FRONTEND=noninteractive
