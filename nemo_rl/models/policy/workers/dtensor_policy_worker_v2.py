@@ -299,6 +299,27 @@ class DTensorPolicyWorkerV2Impl(
         self.dp_size = distributed_context.dp_size
         self.tp_size = distributed_context.tp_size
         self.cp_size = distributed_context.cp_size
+
+        # Report the mesh that was actually built, not just what was configured.
+        # A config dump proves context_parallel_size was parsed; it does not
+        # prove the mesh took that shape. That distinction matters because the
+        # failure mode is silent -- a run that quietly falls back to CP1 looks
+        # healthy until it OOMs on a long sequence, or trains at an unintended
+        # effective batch size (gbs is sharded over dp, which CP changes).
+        # Printed once per rank-0 worker, at the point the sizes become known.
+        if self.rank == 0:
+            seq_len = config.get("max_total_sequence_length")
+            seq_note = (
+                f" seq_per_cp_rank={seq_len // self.cp_size}"
+                if seq_len and self.cp_size > 0 and seq_len % self.cp_size == 0
+                else ""
+            )
+            print(
+                f"[DTensorPolicyWorkerV2] parallel mesh: "
+                f"dp={self.dp_size} tp={self.tp_size} cp={self.cp_size} "
+                f"world_size={torch.distributed.get_world_size()}{seq_note}"
+            )
+
         self._nixl_preinit_agent = maybe_preinit_nixl_checkpoint_engine(config)
 
         # Initialize checkpoint manager now that distributed is set up
